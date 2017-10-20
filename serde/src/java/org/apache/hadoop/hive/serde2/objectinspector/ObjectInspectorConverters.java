@@ -139,11 +139,16 @@ public final class ObjectInspectorConverters {
       return new PrimitiveObjectInspectorConverter.HiveDecimalConverter(
           inputOI,
           (SettableHiveDecimalObjectInspector) outputOI);
-      //add by shining
+      /**
+       * h3c add by shining
+       * --BEGINE
+       */
       case VOID:
         return new PrimitiveObjectInspectorConverter.StringConverter(
                 inputOI);
-
+      /**
+         *end
+       */
       default:
       throw new RuntimeException("Hive internal error: conversion of "
           + inputOI.getTypeName() + " to " + outputOI.getTypeName()

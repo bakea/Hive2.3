@@ -18,6 +18,10 @@
 
 package org.apache.hadoop.hive.ql.udf;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.hive.ql.exec.vector.VectorizedExpressions;
 import org.apache.hadoop.hive.ql.exec.vector.expressions.CastDecimalToDouble;
@@ -44,6 +48,7 @@ import org.apache.hadoop.io.Text;
 public class UDFToDouble extends UDF {
   private final DoubleWritable doubleWritable = new DoubleWritable();
 
+  private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
   public UDFToDouble() {
   }
 
@@ -165,8 +170,23 @@ public class UDFToDouble extends UDF {
     if (i == null) {
       return null;
     } else {
-      //h3c add
-
+    	
+    /**
+     * H3C add
+     * ----begin
+     */
+      try {
+		Date beginDate= format.parse(i.toString());
+		double time = beginDate.getTime()/(24*60*60*1000); 
+		doubleWritable.set(time);
+		return doubleWritable;
+	} catch (ParseException e1) {
+		
+	} 
+     /**
+      * ----end
+      */
+      
       if (!LazyUtils.isNumberMaybe(i.getBytes(), 0, i.getLength())) {
         return null;
       }

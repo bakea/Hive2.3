@@ -381,7 +381,11 @@ public class Driver implements CommandProcessor {
   // interrupted, it should be set to true if the compile is called within another method like
   // runInternal, which defers the close to the called in that method.
   public int compile(String command, boolean resetTaskIds, boolean deferClose) {
-    if(command != null) {
+    /**
+     * H3C add
+     * ---begin
+     */
+	  if(command != null) {
       if (!command.toLowerCase().contains("function"))
       {
         if ((command.contains("sysdate")) && (!command.contains("sysdate()"))) {
@@ -392,6 +396,9 @@ public class Driver implements CommandProcessor {
         }
       }
     }
+	  /**
+	     * ---end
+	     */
     PerfLogger perfLogger = SessionState.getPerfLogger(true);
     perfLogger.PerfLogBegin(CLASS_NAME, PerfLogger.DRIVER_RUN);
     perfLogger.PerfLogBegin(CLASS_NAME, PerfLogger.COMPILE);
@@ -1416,7 +1423,11 @@ public class Driver implements CommandProcessor {
 
   private CommandProcessorResponse runInternal(String command, boolean alreadyCompiled)
           throws CommandNeedRetryException {
-    if(command != null) {
+    /**
+     * h3c add
+     * ---begin
+     */
+	  if(command != null) {
       if (!command.toLowerCase().contains("function"))
       {
         if ((command.contains("sysdate")) && (!command.contains("sysdate()"))) {
@@ -1427,6 +1438,9 @@ public class Driver implements CommandProcessor {
         }
       }
     }
+	/**
+	   * ---end
+	   */
     errorMessage = null;
     SQLState = null;
     downstreamError = null;

@@ -820,6 +820,20 @@ public final class FunctionRegistry {
     if (pgB == PrimitiveGrouping.STRING_GROUP && pgA == PrimitiveGrouping.DATE_GROUP) {
       return a;
     }
+    /**
+     *  H3C ADD
+     *	String_GROUP is higher precedence than NUMERIC_GROUP
+    **/
+    if (pgA == PrimitiveGrouping.STRING_GROUP && pgB == PrimitiveGrouping.NUMERIC_GROUP) {
+      return a;
+    }
+    if (pgA == PrimitiveGrouping.NUMERIC_GROUP && pgB == PrimitiveGrouping.STRING_GROUP) {
+        return b;
+    }
+    /**
+     * H3C END
+    **/
+    
     // Another special case, because timestamp is not implicitly convertible to numeric types.
     if ((pgA == PrimitiveGrouping.NUMERIC_GROUP || pgB == PrimitiveGrouping.NUMERIC_GROUP)
         && (pcA == PrimitiveCategory.TIMESTAMP || pcB == PrimitiveCategory.TIMESTAMP)) {
